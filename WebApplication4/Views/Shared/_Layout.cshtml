@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>@ViewData["Title"] - Experimental</title>
+		@Html.Partial("/Views/LayoutPartials/DevHeadPartial.cshtml")
+	</head>
+	<body>
+		@Html.Partial("/Views/LayoutPartials/NavigationPartial.cshtml")
+		<div class="container body-content">
+			@if(!string.IsNullOrEmpty(ViewData["Title"] as string)) {
+				<h2>@ViewData["Title"]</h2>
+			}
+			@if (!string.IsNullOrEmpty(ViewData["Message"] as string)) {
+				<h3>@ViewData["Message"]</h3>
+			}
+			@RenderBody()
+			@Html.Partial("/Views/LayoutPartials/FooterPartial.cshtml")
+		</div>
+
+		@Html.Partial("/Views/LayoutPartials/DevBodyPartial.cshtml")
+
+		@RenderSection("Scripts", required: false)
+	</body>
+</html>

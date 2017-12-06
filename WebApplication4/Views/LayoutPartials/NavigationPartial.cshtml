@@ -1,0 +1,38 @@
+﻿
+<nav class="navbar navbar-inverse navbar-fixed-top">
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">TestWebApp</a>
+		</div>
+		<div class="navbar-collapse collapse">
+			<ul class="nav navbar-nav">
+				@{
+					string sub = "./Views/Home/";
+					string post = ".cshtml";
+					List<string> filenames = new List<string>(Directory.GetFiles(sub));
+					Predicate<string> isIndex = (s) => s.Equals(sub + "Index" + post);
+					if (filenames.Exists(isIndex)) {
+						string filename = filenames.First(s => isIndex(s));
+						string action = filename.Remove(filename.Length - post.Length, post.Length).Remove(0, sub.Length);
+
+						string display = action.Replace("Index", "Home");
+						<li><a asp-area="" asp-controller="Home" asp-action="@action">@display</a></li>
+					}
+					foreach (String filename in filenames) {
+						if (!isIndex(filename)) {
+							string action = filename.Remove(filename.Length - 7, 7).Remove(0, sub.Length);
+							<li><a asp-area="" asp-controller="Home" asp-action="@action">@action</a></li>
+						}
+					}
+
+				}
+			</ul>
+		</div>
+	</div>
+</nav>
